@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="pomodoro-icon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=EG+Garamond:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./style.css" />
+        <title>Interactive Pomodoro App</title>
+    </head>
+<body>
+    <div class="background-container">
+        <img id="background" src="/assets/main.jpeg" alt="background" />
+    </div>
+    <div class="window-container">
+        <img id="window" src="/assets/window.jpeg" alt="window" />
+    </div>
+    <div class="laptop-container">
+        <img id="laptop" src="/assets/laptop.jpeg" alt="laptop" />
+    </div>
+
+    <!--next screen-->
+    <div class="pomodoro-screen">
+        <div class="tabs">
+            <button id="pomo-tab">⏳Pomodoro   X </button>
+            <button id="todo-tab">🗒️To-Do List   X </button>
+            <button id="close-app">X</button>
+        </div>
+        <div class="heading">Pomodoro</div>
+        <div class="app-message">press start to begin</div>
+            <div class="app-circle">
+                <div class="circle-shape">
+                    <div class="semi-circle right-side circle-mask"></div>
+                    <div class="semi-circle right-side circle"></div>
+                    <div class="semi-circle left-side circle-mask"></div>
+                    <div class="semi-circle left-side circle"></div>
+                </div>
+                <div class="app-counter-box">
+                    <p><span class="minutes">1</span>:<span class="seconds">00</span></p>
+                </div>
+                <button class="btn-start">start</button>
+            </div>
+            <div class="pause-reset-container">
+                <button class="btn-pause">pause</button>
+                <button class="btn-reset">reset</button>
+            </div>
+        </div>
+    </div>
+    <script src="./app.js"></script>
+</body>
+</html>
