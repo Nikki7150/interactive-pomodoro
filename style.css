@@ -90,16 +90,16 @@ body {
   width: 100%;
   margin-top: 20px;
   font: 16px 'Share Tech Mono', monospace;
-  left: 20px;
+  left: -5px;
 }
 
 .app-circle {
   position: relative;
-  margin: 0 0 0 550px;
   width: 200px;
   height: 200px;
   align-items: center;
   top: -30px;
+  left: 250px;
 }
 
 .circle-shape {
@@ -154,7 +154,7 @@ body {
 
 .pause-reset-container {
     position: relative;
-    margin: 0px auto 0 540px;
+    margin: 0px auto 0 250px;
     
     .btn-pause {
         margin-right: 25px;
@@ -207,8 +207,8 @@ button:hover {
 .heading {
     font-family: 'Press Start 2P', cursive;
     font-size: 40px;
-    margin-left: 500px;
-    margin-top: 80px;
+    margin-left: 190px;
+    margin-top: 30px;
 }
 
 .pomodoro-screen {
@@ -218,12 +218,12 @@ button:hover {
     margin: 0;
     width: 705px;
     height: 470px;
-    left: 280px;
+    left: 290px;
     top: 40px;
 }
 
 .tabs {
-    
+  padding: 6px;
     button {
         font-size: 25px;
         border: 2px solid #000;
@@ -233,12 +233,13 @@ button:hover {
     }
     #pomo-tab {
         margin-right: 3px;
-        padding-right: 13px;
+        margin-left: 10px;
+        padding-right: 15px;
         background-color: rgb(176, 169, 169);
         color: black;
     }
     #todo-tab {
-        margin-right: 193px;
+        margin-right: 208px;
         padding-right: 13px;
         background-color: rgb(176, 169, 169);
         color: black;

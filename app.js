@@ -7,6 +7,7 @@ const pomodoroScreen = document.querySelector('.pomodoro-screen');
 
 let isAnimating = false;
 
+// Click event for laptop image
 laptopImg.addEventListener('click', () => {
     if (isAnimating) return;
     isAnimating = true;
@@ -36,6 +37,27 @@ laptopImg.addEventListener('click', () => {
 
     laptopContainer.addEventListener('transitionend', onTransitionEnd);
     backgroundContainer.addEventListener('transitionend', onTransitionEnd);
+});
+
+const pomoTab = document.getElementById('pomo-tab');
+const todoTab = document.getElementById('todo-tab');
+
+pomoTab.disabled = true;
+pomoTab.style.cursor = 'default';
+/*
+pomoTab.addEventListener('click', () => {
+    // Enable the pomodoro tab functionality here
+    alert('Pomodoro tab clicked');
+});*/
+
+
+
+todoTab.addEventListener('click', () => {
+    //alert('Todo tab clicked');
+    // Hide the pomodoro screen
+    pomodoroScreen.classList.remove('active');
+    // Change the HTML element's background image (matches CSS target)
+    document.documentElement.style.backgroundImage = "url('/assets/todolist.jpeg')";
 });
 
 /*windowImg.addEventListener('click', () => {
