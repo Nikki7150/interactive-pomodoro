@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="pomodoro-icon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=EG+Garamond:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./style.css" />
+        <title>Interactive Pomodoro App</title>
+    </head>
+<body>
+    <div class="background-container">
+        <img id="background" src="/assets/main.jpeg" alt="background" />
+    </div>
+    <div class="window-container">
+        <img id="window" src="/assets/window.jpeg" alt="window" />
+    </div>
+    <div class="laptop-container">
+        <img id="laptop" src="/assets/laptop.jpeg" alt="laptop" />
+    </div>
+
+    <div id="computer-screen">
+        <div id="navbar">
+            <p id="icon">🖤</p>
+            <p id="name">MacOS</p>
+            <p id="timeElement">Time</p>
+        </div>
+
+        <div class="window" id="pomodoro" style="display: none;">
+            <div class="windowheader" id="pomoheader">
+                <div class="closebtn" id="pomoclose"></div>
+                <p class="headertext">Pomodoro</p>
+                <div></div>
+            </div>
+            <div class="contents" id="pomocont">
+                <p><span class="minutes">25</span>:<span class="seconds">00</span></p>
+                <button class="btn" id="startBtn">Start</button>
+                <button class="btn" id="pauseBtn">Pause</button>
+                <button class="btn" id="resetBtn">Reset</button>
+            </div>
+        </div>
+
+        <div id="desktopApps">
+            <div class="selected">
+                <div class="appIcon" id="pomoapp">
+                    <img id="pomo-icon"src="/assets/pomo-icon.jpeg" alt="pomodoro icon" />
+                    <p class="appLabel pomo-tab">Pomodoro</p>
+                </div>
+                <div class="appIcon" id="todoapp">
+                    <img id="todo-icon"src="/assets/todo-icon.jpeg" alt="todo icon" />
+                    <p class="appLabel pomo-tab">Todo List</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" id="todolist" style="display: none;">
+            <div class="windowheader" id="todoheader">
+                <div class="closebtn" id="todoclose"></div>
+                <p class="headertext">Todo List</p>
+                <div></div>
+            </div>
+            <div class="contents" id="todocont"></div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>
