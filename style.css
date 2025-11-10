@@ -7,6 +7,8 @@ html {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+
+
 body {
     padding: 0;
     margin: 0;
@@ -22,7 +24,7 @@ body {
     /* Zoom animation support */
     transition: transform 600ms ease;
     transform-origin: center center;
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Applied when clicking the laptop to zoom */
@@ -46,7 +48,7 @@ body {
     /* Zoom animation support */
     transition: transform 600ms ease;
     transform-origin: center center;
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Applied when clicking the laptop to zoom */
@@ -70,7 +72,7 @@ body {
     /* Zoom animation support */
     transition: transform 600ms ease;
     transform-origin: center center;
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Applied when clicking the laptop to zoom */
@@ -84,13 +86,12 @@ body {
 }
 
 #computer-screen {
-    width: 100%;
-    height: 100vh;
+    
     width: 705px;
     height: 470px;
     left: 290px;
     top: 40px;
-    position: absolute;
+    position: relative;
     border: 2px solid #000;
     border-radius: 20px;
     overflow: hidden;
@@ -129,7 +130,7 @@ body {
 }
 
 #timeElement {
-  left: 510px;
+  left: 500px;
 }
 
 #pomodoro {
@@ -214,7 +215,7 @@ body {
     border: solid black 1px;
     width: 310px;
     border-radius: 15px;
-    padding: 16px;
+    padding: 5px;
     padding-top: 0;
     position: absolute;
     top: 50%;
@@ -281,7 +282,103 @@ body {
 }
 
 .contents {
-    background-color: antiquewhite;
+    background-color: rgb(237, 235, 232);
     border-radius: 12px;
     color: black;
+    padding: 10px;
 }
+
+#pomocont {
+    p {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 90px;
+        text-align: center;
+    }
+    
+}
+
+#input-box {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(54, 54, 54, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, visibility 0.4s;
+  z-index: 10;
+}
+
+.popup-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-box {
+  background: #aea5a5;
+  border-radius: 10px;
+  padding: 25px 35px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: popIn 0.3s ease;
+  height: 170px;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+hr {
+    margin: 0;
+  }
+  h2 {
+    font-size: 26px;
+    }
+  #yes-btn {
+    margin: 0 auto;
+    margin-top: -35px;
+    margin-left: 40px;
+    padding-bottom: 2px;
+    float: left;
+    cursor: pointer;
+    background: rgb(231, 227, 227, 0.5);
+    border: 1px solid #dcdee7;
+    &:hover {
+      cursor: pointer;
+      box-shadow: #585151 2px 4px 8px 2px;
+    }
+  }
+  #no-btn {
+    margin: 0 auto;
+    margin-top: -35px;
+    margin-right: 50px;
+    padding-bottom: 2px;
+    float: right;
+    cursor: pointer;
+    background: rgb(231, 227, 227, 0.5);
+    border: 1px solid #ffffff;
+    &:hover {
+      cursor: pointer;
+      box-shadow: #585151 2px 4px 8px 2px;
+    }
+  }

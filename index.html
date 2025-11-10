@@ -23,7 +23,7 @@
         <img id="laptop" src="/assets/laptop.jpeg" alt="laptop" />
     </div>
 
-    <div id="computer-screen">
+    <div class="parent-container" id="computer-screen">
         <div id="navbar">
             <p id="icon">🖤</p>
             <p id="name">MacOS</p>
@@ -63,7 +63,27 @@
                 <p class="headertext">Todo List</p>
                 <div></div>
             </div>
-            <div class="contents" id="todocont"></div>
+            <div class="contents" id="todocont">
+                <input type="text" id="input-box" placeholder="Enter a new task" />
+                <button class="btn" id="addBtn">Add</button>
+                <button class="btn" id="deletebtn">Delete All</button>
+                <h2>Tasks:</h2>
+                <ul id="list-cont"></ul>
+                <hr />
+
+            </div>
+        </div>
+
+        <div class="popup-overlay" id="popup">
+            <div class="popup-box">
+                <h2>TODO LIST says</h2>
+                <h3>Are you sure you want to delete all tasks??</h3>
+                <hr />
+                <div class="popup-buttons">
+                    <button id="yes-btn">Yes</button>
+                    <button id="no-btn">No</button>
+                </div>
+            </div>
         </div>
     </div>
 
