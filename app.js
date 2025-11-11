@@ -4,9 +4,9 @@ const laptopContainer = document.querySelector('.laptop-container');
 const windowContainer = document.querySelector('.window-container');
 const backgroundContainer = document.querySelector('.background-container');
 
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 // Animation of zooming in
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 let isAnimating = false;
 
@@ -46,9 +46,9 @@ laptopImg.addEventListener('click', () => {
     windowImg.style.display = 'none';
 });*/
 
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 // laptop time update
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 
 function updateTIME() {
@@ -59,122 +59,92 @@ function updateTIME() {
 
 setInterval(updateTIME, 1000);
 
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 // making windows draggable
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 // Make element draggable
 dragElement(document.getElementById("pomodoro"));
 dragElement(document.getElementById("todolist"));
 
-// Step 1: Define a function called `dragElement` that makes an HTML element draggable.
-// Make element draggable (safer version)
+// Robust dragElement: clamps using getBoundingClientRect against #computer-screen
 function dragElement(element) {
-  var initialX = 0;
-  var initialY = 0;
-  var currentX = 0;
-  var currentY = 0;
-  var dragging = false;
+  if (!element) return;
 
-  // Prefer a header element inside the window if present
-  var header = element.querySelector('.windowheader') || document.getElementById(element.id + "header");
+  const container = document.getElementById('computer-screen') || element.offsetParent;
+  if (!container) return;
 
-  // Helper to detect interactive targets we should ignore
-  function isInteractiveTarget(target) {
-    if (!target) return false;
-    return !!target.closest('input, button, textarea, select, label, a');
+  const header = element.querySelector('.windowheader') || document.getElementById(element.id + 'header');
+  if (!header) return; // only allow drag via header
+
+  let startX = 0;
+  let startY = 0;
+  let origElemRect = null;
+  let containerRect = null;
+
+  function onPointerDown(e) {
+    e.preventDefault();
+    header.classList.add('grabbing');
+
+    // get initial pointer coords
+    startX = e.clientX;
+    startY = e.clientY;
+
+    // measure rects in viewport coords
+    origElemRect = element.getBoundingClientRect();
+    containerRect = container.getBoundingClientRect();
+
+    // convert element to pixel-left/top relative to container and remove centering transform
+    const leftRelative = origElemRect.left - containerRect.left;
+    const topRelative = origElemRect.top - containerRect.top;
+    element.style.left = leftRelative + 'px';
+    element.style.top = topRelative + 'px';
+    element.style.transform = 'none';
+
+    document.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('pointerup', onPointerUp, { once: true });
   }
 
-  if (header) {
-    header.style.cursor = 'grab';
-    header.addEventListener('mousedown', startDragging);
-    header.addEventListener('touchstart', startDragging, {passive: false});
-  } else {
-    // If no header, attach to the element but ignore clicks on interactive children
-    element.addEventListener('mousedown', function(e) {
-      if (isInteractiveTarget(e.target)) return; // don't start dragging when user clicked an input/button/etc.
-      startDragging(e);
-    });
-    element.addEventListener('touchstart', function(e) {
-      if (isInteractiveTarget(e.target)) return;
-      startDragging(e);
-    }, {passive: false});
+  function onPointerMove(e) {
+    e.preventDefault();
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    const dx = clientX - startX;
+    const dy = clientY - startY;
+
+    // new element top-left in client coordinates
+    let newLeftClient = origElemRect.left + dx;
+    let newTopClient = origElemRect.top + dy;
+
+    // clamp to container's client rect so element stays fully inside
+    const minLeftClient = containerRect.left;
+    const maxLeftClient = containerRect.right - origElemRect.width;
+    const minTopClient = containerRect.top;
+    const maxTopClient = containerRect.bottom - origElemRect.height;
+
+    newLeftClient = Math.max(minLeftClient, Math.min(maxLeftClient, newLeftClient));
+    newTopClient = Math.max(minTopClient, Math.min(maxTopClient, newTopClient));
+
+    // convert back to container-relative pixels
+    const leftRelative = newLeftClient - containerRect.left;
+    const topRelative = newTopClient - containerRect.top;
+
+    element.style.left = leftRelative + 'px';
+    element.style.top = topRelative + 'px';
   }
 
-  function startDragging(e) {
-    e = e || window.event;
-    e.preventDefault && e.preventDefault();
-
-    // protect interactive targets (just a second safety)
-    if (isInteractiveTarget(e.target)) return;
-
-    dragging = true;
-    (header || element).classList && (header || element).classList.add('grabbing');
-
-    // initial positions
-    initialX = e.clientX || (e.touches && e.touches[0].clientX);
-    initialY = e.clientY || (e.touches && e.touches[0].clientY);
-
-    document.addEventListener('mousemove', elementDrag);
-    document.addEventListener('mouseup', stopDragging);
-    // touch equivalents
-    document.addEventListener('touchmove', elementDrag, {passive: false});
-    document.addEventListener('touchend', stopDragging);
+  function onPointerUp() {
+    header.classList.remove('grabbing');
+    document.removeEventListener('pointermove', onPointerMove);
   }
 
-  //Top: 40 Left: 290 Width: 709 Height: 474
-
-  function elementDrag(e) {
-  if (!dragging) return;
-  e = e || window.event;
-  e.preventDefault && e.preventDefault();
-
-  var clientX = e.clientX || (e.touches && e.touches[0].clientX);
-  var clientY = e.clientY || (e.touches && e.touches[0].clientY);
-
-  currentX = initialX - clientX;
-  currentY = initialY - clientY;
-  initialX = clientX;
-  initialY = clientY;
-
-  let newTop = element.offsetTop - currentY;
-  let newLeft = element.offsetLeft - currentX;
-
-  // 🖥️ Hardcoded computerscreen boundaries
-  const screenTop = 116;
-  const screenLeft = 160;
-  const screenWidth = 709;
-  const screenHeight = 454;
-
-  const minLeft = screenLeft;
-  const minTop = screenTop;
-  const maxLeft = screenLeft + screenWidth - element.offsetWidth;
-  const maxTop = screenTop + screenHeight - element.offsetHeight;
-
-  // Clamp positions within the screen
-  if (newLeft < minLeft) newLeft = minLeft;
-  if (newTop < minTop) newTop = minTop;
-  if (newLeft > maxLeft) newLeft = maxLeft;
-  if (newTop > maxTop) newTop = maxTop;
-
-  element.style.left = newLeft + "px";
-  element.style.top = newTop + "px";
+  header.addEventListener('pointerdown', onPointerDown);
 }
 
-  function stopDragging() {
-    dragging = false;
-    (header || element).classList && (header || element).classList.remove('grabbing');
-
-    document.removeEventListener('mousemove', elementDrag);
-    document.removeEventListener('mouseup', stopDragging);
-    document.removeEventListener('touchmove', elementDrag);
-    document.removeEventListener('touchend', stopDragging);
-  }
-}
-
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 // Windows functionality
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 var pomoscreen = document.getElementById("pomodoro");
 var todolistscreen = document.getElementById("todolist");
@@ -240,9 +210,9 @@ todolistscreen.addEventListener("mousedown", function() {
     if (topBar) topBar.style.zIndex = biggestZIndex + 1;
 });
 
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 // Pomodoro functionality
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 //const bells = new Audio('end-bell.wav');
 //const beep = document.getElementById('beep-sound');
@@ -328,9 +298,9 @@ resetBtn.addEventListener('click', () => {
   }
 }); 
 
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 // ToDo List functionality
-// ----------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 const inputBox = document.getElementById("input-box");
 const addBtn = document.getElementById("addBtn");
@@ -341,16 +311,12 @@ function addTask() {
   const task = inputBox.value.trim();
   if (!task) {
     // show popup to take a break
-    const popup =  document.getElementById('popup');
-    popup.classList.add('active'); 
-    popup.style.zIndex = 10;
+    const popup3 =  document.getElementById('popup3');
+    popup3.classList.add('active'); 
+    popup3.style.zIndex = 10;
 
-    document.getElementById('yes-btn').addEventListener('click', () => {
-      listCont.innerHTML = "";
-      popup.classList.remove('active');
-    });
-    document.getElementById('no-btn').addEventListener('click', () => {
-      popup.classList.remove('active');
+    document.getElementById('ok2-btn').addEventListener('click', () => {
+      popup3.classList.remove('active');
     });
     return;
   }
@@ -380,13 +346,34 @@ function addTask() {
   });
 
   editBtn.addEventListener("click", function() {
-    const update = prompt("Edit task:", taskSpan.textContent);
-    if (update !== null) {
-      taskSpan.textContent = update;
-      li.classList.remove("completed");
-      checkbox.checked = false;
-      //updateCounters();
+    const popup1 =  document.getElementById('popup1');
+    popup1.classList.add('active'); 
+    popup1.style.zIndex = 10;
+
+    // populate edit input with current task text
+    const editInput = document.getElementById('edit-input-box');
+    if (editInput) editInput.value = taskSpan.textContent;
+
+    // OK handler: read the edit input value (not the main inputBox)
+    const okBtn = document.getElementById('ok-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    if (okBtn) {
+      okBtn.addEventListener('click', function onOk() {
+        const update = editInput ? editInput.value.trim() : null;
+        if (update !== null && update !== "") {
+          taskSpan.textContent = update;
+          li.classList.remove("completed");
+          checkbox.checked = false;
+        }
+        popup1.classList.remove('active');
+      }, { once: true });
     }
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function onCancel() {
+        popup1.classList.remove('active');
+      }, { once: true });
+    }
+    
   });
 
   listCont.appendChild(li);
@@ -420,6 +407,13 @@ function deleteAllTasks() {
 if (addBtn) {
   addBtn.addEventListener('click', addTask);
 }
+
+inputBox.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    addTask();
+  }
+});
 
 if (deleteBtn) {
   deleteBtn.addEventListener('click', deleteAllTasks);
