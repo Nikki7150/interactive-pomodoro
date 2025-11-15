@@ -7,11 +7,21 @@ html {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-
-
 body {
     padding: 0;
     margin: 0;
+}
+
+#back {
+  z-index: 1000;
+  position: fixed;
+  top: 10px;
+  left: 1030px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  
 }
 
 .background-container {
@@ -86,7 +96,6 @@ body {
 }
 
 #computer-screen {
-    
     width: 705px;
     height: 470px;
     left: 290px;
@@ -95,10 +104,42 @@ body {
     border: 2px solid #000;
     border-radius: 20px;
     overflow: hidden;
-    background-image: url('/assets/skz-wallpaper.jpeg');
+    background-image: url('/assets/screen.jpeg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    #desktopApps {
+      display: none;
+    }
+    #navbar {
+      display: none;
+    }
+}
+
+#computer-screen.open {
+    background-image: url('/assets/skz-wallpaper.jpeg');
+    #desktopApps {
+      display: block;
+    }
+    #navbar {
+      display: block;
+    }
+}
+
+#computer-screen.close {
+    background-image: url('/assets/screen.jpeg');
+    #desktopApps {
+      display: none;
+    }
+    #navbar {
+      display: none;
+    }
+    #pomodoro {
+      display: none !important;
+    }
+    #todolist {
+      display: none !important;
+    }
 }
 
 #navbar {
@@ -453,6 +494,75 @@ hr {
     cursor: pointer;
     background: rgb(231, 227, 227, 0.5);
     border: 1px solid #dcdee7;
+    &:hover {
+      cursor: pointer;
+      box-shadow: #585151 2px 4px 8px 2px;
+    }
+  }
+
+  #ok3-btn {
+  position: absolute;
+  left: 10px;
+  top: 65px;
+  width: 50px;
+  height: 30px;
+  border-radius: 12px;
+    float: left;
+    cursor: pointer;
+    background: rgb(231, 227, 227, 0.5);
+    border: 1px solid #dcdee7;
+    &:hover {
+      cursor: pointer;
+      box-shadow: #585151 2px 4px 8px 2px;
+    }
+  }
+
+  #cancel3-btn {
+  position: absolute;
+  left: 70px;
+  top: 65px;
+  width: 50px;
+  height: 30px;
+  border-radius: 12px;
+    padding-bottom: 2px;
+    float: right;
+    cursor: pointer;
+    background: rgb(231, 227, 227, 0.5);
+    border: 1px solid #ffffff;
+    &:hover {
+      cursor: pointer;
+      box-shadow: #585151 2px 4px 8px 2px;
+    }
+  }
+
+#yes1-btn {
+  position: absolute;
+  left: 10px;
+  top: 65px;
+  width: 50px;
+  height: 30px;
+  border-radius: 12px;
+    float: left;
+    cursor: pointer;
+    background: rgb(231, 227, 227, 0.5);
+    border: 1px solid #dcdee7;
+    &:hover {
+      cursor: pointer;
+      box-shadow: #585151 2px 4px 8px 2px;
+    }
+  }
+#no1-btn {
+  position: absolute;
+  left: 70px;
+  top: 65px;
+  width: 50px;
+  height: 30px;
+  border-radius: 12px;
+    padding-bottom: 2px;
+    float: right;
+    cursor: pointer;
+    background: rgb(231, 227, 227, 0.5);
+    border: 1px solid #ffffff;
     &:hover {
       cursor: pointer;
       box-shadow: #585151 2px 4px 8px 2px;

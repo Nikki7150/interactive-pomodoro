@@ -3,6 +3,7 @@ const windowImg = document.getElementById('window');
 const laptopContainer = document.querySelector('.laptop-container');
 const windowContainer = document.querySelector('.window-container');
 const backgroundContainer = document.querySelector('.background-container');
+const backButton = document.getElementById('back');
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // Animation of zooming in
@@ -27,8 +28,9 @@ laptopImg.addEventListener('click', () => {
         laptopContainer.removeEventListener('transitionend', onTransitionEnd);
         backgroundContainer.removeEventListener('transitionend', onTransitionEnd);
 
-        // Change the HTML element's background image (matches CSS target)
+        // Change the HTML element's background image and show back button
         document.documentElement.style.backgroundImage = "url('/assets/pomodoro.jpeg')";
+        backButton.style.display = 'inline';
 
         // Hide both the laptop and window images
         laptopContainer.style.display = 'none';
@@ -40,6 +42,16 @@ laptopImg.addEventListener('click', () => {
 
     laptopContainer.addEventListener('transitionend', onTransitionEnd);
     backgroundContainer.addEventListener('transitionend', onTransitionEnd);
+    
+});
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// Computer turn on
+// ----------------------------------------------------------------------------------------------------------------------------------------
+
+const container = document.getElementById('computer-screen');
+container.addEventListener('click', () => {
+    container.classList.add('open');
 });
 
 /*windowImg.addEventListener('click', () => {
@@ -49,7 +61,6 @@ laptopImg.addEventListener('click', () => {
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // laptop time update
 // ----------------------------------------------------------------------------------------------------------------------------------------
-
 
 function updateTIME() {
     var currentTime = new Date().toLocaleString();
@@ -176,7 +187,7 @@ pomoclose.addEventListener("click", function() {
     clearInterval(myInterval);
     isRunning = false;
     totalSeconds = undefined;
-    minuteDiv.textContent = '25';
+    minuteDiv.textContent = '1';
     secondDiv.textContent = '00';
     closeWindow(pomoscreen);
   }
@@ -259,15 +270,17 @@ const appTimer = () => {
       isRunning = false;
 
       // show popup to take a break
-    const popup =  document.getElementById('popup');
-    popup.classList.add('active'); 
+    const popup5 =  document.getElementById('popup5');
+    popup5.classList.add('active'); 
 
-    document.getElementById('yes-btn').addEventListener('click', () => {
-      window.location.href = 'break.html'; // link to break page
+    document.getElementById('yes1-btn').addEventListener('click', () => {
+      popup5.classList.remove('active');
+      container.classList.remove('open');
+      container.classList.add('close');
     });
-    document.getElementById('no-btn').addEventListener('click', () => {
-      popup.classList.remove('active');
-      minuteDiv.textContent = '25';
+    document.getElementById('no1-btn').addEventListener('click', () => {
+      popup5.classList.remove('active');
+      minuteDiv.textContent = '1';
       secondDiv.textContent = '00';
       totalSeconds = undefined; // reset for next start
     });
@@ -289,13 +302,23 @@ pauseBtn.addEventListener('click', () => {
 });
 
 resetBtn.addEventListener('click', () => {
-  if(confirm("Are you sure you want to reset the timer?")) {
-    clearInterval(myInterval);
-    isRunning = false;
-    totalSeconds = undefined;
-    minuteDiv.textContent = '25';
-    secondDiv.textContent = '00';
-  }
+  // show popup to take a break
+  const popup4 =  document.getElementById('popup4');
+  popup4.classList.add('active'); 
+  // ensure popup overlays sit above any open windows
+  popup4.style.zIndex = (biggestZIndex || 1) + 2;
+
+    document.getElementById('ok3-btn').addEventListener('click', () => {
+      clearInterval(myInterval);
+      isRunning = false;
+      totalSeconds = undefined;
+      minuteDiv.textContent = '1';
+      secondDiv.textContent = '00';
+      popup4.classList.remove('active');
+    });
+    document.getElementById('cancel3-btn').addEventListener('click', () => {
+      popup4.classList.remove('active');
+    });
 }); 
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
@@ -311,9 +334,9 @@ function addTask() {
   const task = inputBox.value.trim();
   if (!task) {
     // show popup to take a break
-    const popup3 =  document.getElementById('popup3');
-    popup3.classList.add('active'); 
-    popup3.style.zIndex = 10;
+  const popup3 =  document.getElementById('popup3');
+  popup3.classList.add('active'); 
+  popup3.style.zIndex = (biggestZIndex || 1) + 2;
 
     document.getElementById('ok2-btn').addEventListener('click', () => {
       popup3.classList.remove('active');
@@ -346,9 +369,9 @@ function addTask() {
   });
 
   editBtn.addEventListener("click", function() {
-    const popup1 =  document.getElementById('popup1');
-    popup1.classList.add('active'); 
-    popup1.style.zIndex = 10;
+  const popup1 =  document.getElementById('popup1');
+  popup1.classList.add('active'); 
+  popup1.style.zIndex = (biggestZIndex || 1) + 2;
 
     // populate edit input with current task text
     const editInput = document.getElementById('edit-input-box');
@@ -389,9 +412,9 @@ function addTask() {
 
 function deleteAllTasks() {
   // show popup to take a break
-    const popup =  document.getElementById('popup');
-    popup.classList.add('active'); 
-    popup.style.zIndex = 10;
+  const popup =  document.getElementById('popup');
+  popup.classList.add('active'); 
+  popup.style.zIndex = (biggestZIndex || 1) + 2;
 
     document.getElementById('yes-btn').addEventListener('click', () => {
       listCont.innerHTML = "";
@@ -418,3 +441,22 @@ inputBox.addEventListener("keypress", function(event) {
 if (deleteBtn) {
   deleteBtn.addEventListener('click', deleteAllTasks);
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// Back button code - has to work anywhere with specific popups for each occasion
+// ----------------------------------------------------------------------------------------------------------------------------------------
+
+/*backButton.addEventListener('click', () => {
+  // check if pomodoro is running
+  if(isRunning) {
+    alert("Please pause or reset the Pomodoro timer before going back.");
+    return;
+  }
+  // check if todo list has items
+  if(listCont.children.length > 0) {
+    alert("Please delete all tasks from the To-Do List before going back.");
+    return;
+  }
+  // maybe try to check if any of the other popups are open?
+  
+});*/
