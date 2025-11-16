@@ -66,6 +66,11 @@ body {
     transform: scale(2.1);
 }
 
+.laptop-container.zoom-down {
+    transform: scale(3.0) translateY(250px);
+    transition: transform 900ms ease;
+}
+
 .laptop-container img {
     width: 100%;
     height: auto;
@@ -85,9 +90,8 @@ body {
     z-index: 1;
 }
 
-/* Applied when clicking the laptop to zoom */
 .window-container.zoom-in {
-    transform: scale(1.85);
+    transform: scale(2.1);
 }
 
 .window-container img {

@@ -11,15 +11,17 @@ const backButton = document.getElementById('back');
 
 let isAnimating = false;
 
-// Click event for laptop image
-laptopImg.addEventListener('click', () => {
-    if (isAnimating) return;
-    isAnimating = true;
+function zoomInAnimation() {
+  if (isAnimating) return;
+  if (!laptopContainer || !backgroundContainer || !laptopImg) {
+    console.error('zoomInAnimation: required elements missing', { laptopContainer, backgroundContainer, laptopImg });
+    return;
+  }
+  isAnimating = true;
 
     // Start zoom-in animation on the positioned container
     laptopContainer.classList.add('zoom-in');
     windowContainer.style.display = 'none';
-    //windowContainer.classList.add('zoom-in');
     backgroundContainer.classList.add('zoom-in');
 
     // After the zoom completes, change background and hide elements
@@ -35,15 +37,23 @@ laptopImg.addEventListener('click', () => {
         // Hide both the laptop and window images
         laptopContainer.style.display = 'none';
         backgroundContainer.style.display = 'none';
-        
-        // Show the pomodoro screen
-        
+        container.style.display = 'block';
+        // allow future transitions (the UI is now showing the computer screen)
+        isAnimating = false;
     };
 
     laptopContainer.addEventListener('transitionend', onTransitionEnd);
     backgroundContainer.addEventListener('transitionend', onTransitionEnd);
-    
-});
+}
+
+// Click event for laptop image
+if (laptopImg) {
+  laptopImg.addEventListener('click', () => {
+    zoomInAnimation();
+  });
+} else {
+  console.error('laptopImg element not found; click handler not attached');
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // Computer turn on
@@ -53,10 +63,6 @@ const container = document.getElementById('computer-screen');
 container.addEventListener('click', () => {
     container.classList.add('open');
 });
-
-/*windowImg.addEventListener('click', () => {
-    windowImg.style.display = 'none';
-});*/
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // laptop time update
@@ -446,7 +452,8 @@ if (deleteBtn) {
 // Back button code - has to work anywhere with specific popups for each occasion
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
-/*backButton.addEventListener('click', () => {
+isAnimating = false;
+backButton.addEventListener('click', () => {
   // check if pomodoro is running
   if(isRunning) {
     alert("Please pause or reset the Pomodoro timer before going back.");
@@ -458,5 +465,82 @@ if (deleteBtn) {
     return;
   }
   // maybe try to check if any of the other popups are open?
-  
-});*/
+  container.style.display = 'none';
+  //document.documentElement.style.backgroundImage = "url('/assets/desk.jpeg')";
+  laptopContainer.style.display = 'block';
+  windowContainer.style.display = 'block';
+  backgroundContainer.style.display = 'block';
+  backButton.style.display = 'none';
+
+  // Start zoom-in animation on the positioned container
+  laptopContainer.classList.remove('zoom-in');
+  backgroundContainer.classList.remove('zoom-in');
+  windowContainer.classList.remove('zoom-in');
+  windowContainer.style.display = 'block';
+  // ensure we can zoom in again after zooming out
+  isAnimating = false;
+});
+
+// Click event for laptop image
+laptopImg.addEventListener('click', () => {
+    zoomInAnimation();
+});
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// window click handler to zoom in to break page
+// ----------------------------------------------------------------------------------------------------------------------------------------
+
+let isWindowAnimating = false;
+
+function zoomWindowInAnimation() {
+  /*if (isWindowAnimating) {
+    console.debug('zoomWindowInAnimation: already animating');
+    return;
+  }
+
+  if (!laptopContainer || !windowContainer || !backgroundContainer) {
+    console.error('zoomWindowInAnimation: missing required containers', { laptopContainer, windowContainer, backgroundContainer });
+    return;
+  }
+
+  console.debug('zoomWindowInAnimation: start');*/
+  isWindowAnimating = true;
+
+  // Start zoom-in animation on the positioned container
+  laptopContainer.classList.add('zoom-down');
+  windowContainer.classList.add('zoom-in');
+  backgroundContainer.classList.add('zoom-in');
+
+    // After the zoom completes, change background and hide elements
+  const onTransitionEnd = (e) => {
+    // Only act on the transform transition to avoid duplicate calls
+    if (e.propertyName !== 'transform') return;
+    
+
+    // remove listeners from all three targets
+    laptopContainer.removeEventListener('transitionend', onTransitionEnd);
+    backgroundContainer.removeEventListener('transitionend', onTransitionEnd);
+    windowContainer.removeEventListener('transitionend', onTransitionEnd);
+
+    // Show back button
+    if (backButton) backButton.style.display = 'inline';
+
+    // Hide both the laptop and background images and show the computer screen
+    laptopContainer.style.display = 'none';
+    backgroundContainer.style.display = 'none';
+    window.location.href = "/break.html";
+    //container.style.display = 'block';
+
+    // allow future transitions
+    isWindowAnimating = false;
+  };
+
+  laptopContainer.addEventListener('transitionend', onTransitionEnd);
+  backgroundContainer.addEventListener('transitionend', onTransitionEnd);
+  windowContainer.addEventListener('transitionend', onTransitionEnd);
+}
+
+
+windowContainer.addEventListener('click', () => {
+  zoomWindowInAnimation();
+});

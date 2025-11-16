@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="pomodoro-icon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=EG+Garamond:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Schoolbell&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./style-break.css" />
+        <title>Interactive Pomodoro App</title>
+    </head>
+<body>
+    <button>Go home</button>
+    <button>Play a game</button>
+    <button>Music</button>
+    <button>Virtual pet</button>
+
+    <div id="desktopApps">
+        <div class="selected">
+            <div class="appIcon" id="affirmationApp">
+                <img id="affirmation-icon" src="/assets/Bbokari.jpg" alt="affirmation icon" />
+                <p class="appLabel pomo-tab">Affirmations</p>
+            </div>
+            <div class="appIcon" id="drawingApp">
+                <img id="drawing-icon" src="/assets/Jiniret.jpg" alt="drawing icon" />
+                <p class="appLabel pomo-tab">Sketch Pad</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="affirmationWindow" style="display: none;"><!-- style="display: none;" -->
+        <div class="windowheader" id="affirmationheader">
+            <div></div>
+            <p class="headertext">Affirmations</p>
+            <div><button id="resetButton">🗘</button></div>
+        </div>
+        <hr />
+        <div class="contents" id="affirmationcont">
+            <p id="affirmationText">You're doing great! Ok?</p>
+        </div>
+    </div>
+
+    <div class="window" id="drawingWindow" style="display: none;"><!-- style="display: none;" -->
+        <div class="windowheader" id="drawingheader">
+            <div></div>
+            <p class="headertext">Sketch Pad</p>
+            <div></div>
+        </div>
+        <hr />
+        <div class="contents" id="drawingcont">
+            <canvas id="canvas" width="305" height="200"></canvas>
+            <div id="toolbox">
+                <button id="decrease">-</button>
+                <span id="size">10</span>
+                <button id="increase">+</button>
+                <input type="color" id="color" />
+                <button id="clear">X</button>
+            </div>
+        </div>
+    </div>
+    <script src="./app-break.js"></script>
+</body>
+</html>

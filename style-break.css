@@ -1,0 +1,96 @@
+html { 
+    background-image: url('/assets/skz-pretty.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top;
+    min-height: 100vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    opacity: 0.8;
+    cursor: url('assets/cursor.png') 16 16, auto !important;
+    margin: 0;
+    padding: 0;
+}
+
+.window {
+    border: solid black 1px;
+    width: 310px;
+    border-radius: 15px;
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(10px);
+    background-color: rgba(163, 163, 163, 0.15);
+    color: #fff;
+    box-shadow: black 4px 4px 8px;
+    p {
+    font-family: 'Schoolbell', cursive;
+    margin: 0;
+    }
+}
+
+.windowheader {
+    margin: 0;
+    cursor: grab;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    /*border-bottom: rgb(0, 0, 0) 1px solid;*/
+    margin-bottom: 5px;
+    justify-content: space-between;
+    font-size: 20px;
+    p {
+        font-family: 'Mansalva', cursive;
+    }
+}
+
+#affirmationWindow {
+    height: fit-content;
+    align-items: center;
+    text-align: center;
+}
+
+button {
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+}
+
+canvas {
+  border: 2px solid steelblue;
+  background: #fff;
+}
+
+#toolbox {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    button {
+        border: 1px solid grey;
+        border-radius: 8px;
+        padding: 5px;
+        background-color: lightgrey;
+    }
+}
+
+#desktopApps {
+    text-align: center; 
+    padding: 16px; 
+    filter: drop-shadow(0 0 4px rgb(90, 90, 90)); 
+    width: fit-content;
+}
+
+#drawing-icon, #affirmation-icon {
+    width: 64px; 
+    height: 64px; 
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+p {
+    margin: 0px; 
+    color: #fff; 
+}
