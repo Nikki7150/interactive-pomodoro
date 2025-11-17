@@ -14,19 +14,25 @@
     </head>
 <body>
     <button>Go home</button>
-    <button>Play a game</button>
     <button>Music</button>
-    <button>Virtual pet</button>
 
     <div id="desktopApps">
         <div class="selected">
             <div class="appIcon" id="affirmationApp">
                 <img id="affirmation-icon" src="/assets/Bbokari.jpg" alt="affirmation icon" />
-                <p class="appLabel pomo-tab">Affirmations</p>
+                <p class="appLabel">Affirmations</p>
             </div>
             <div class="appIcon" id="drawingApp">
                 <img id="drawing-icon" src="/assets/Jiniret.jpg" alt="drawing icon" />
-                <p class="appLabel pomo-tab">Sketch Pad</p>
+                <p class="appLabel">Sketch Pad</p>
+            </div>
+            <div class="appIcon" id="ticTacToeGame">
+                <img id="ticTacToe-icon" src="/assets/Foxin.jpg" alt="tic tac toe icon" />
+                <p class="appLabel">Tic Tac Toe</p>
+            </div>
+            <div class="appIcon" id="petApp">
+                <img id="petSpawn" src="/assets/wolfchan.jpg" alt="virtual pet icon" />
+                <p class="appLabel">Virtual Pet</p>
             </div>
         </div>
     </div>
@@ -35,7 +41,7 @@
         <div class="windowheader" id="affirmationheader">
             <div></div>
             <p class="headertext">Affirmations</p>
-            <div><button id="resetButton">🗘</button></div>
+            <div><button id="reset-Button">🗘</button></div>
         </div>
         <hr />
         <div class="contents" id="affirmationcont">
@@ -61,6 +67,39 @@
             </div>
         </div>
     </div>
+
+    <div class="window" id="ticTacToeWindow" style="display: none;"><!-- style="display: none;" -->
+        <div class="windowheader" id="tictactoeheader">
+            <div></div>
+            <p class="headertext">Tic Tac Toe</p>
+            <div></div>
+        </div>
+        <hr />
+        <div class="contents" id="tictactoecont">
+            <!-- Game Board -->
+            <div class="board" id="board">
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+            </div>
+
+            <!-- Game Status -->
+            <p class="status" id="status">Your turn</p>
+            
+            <!-- Reset Button -->
+            <button class="reset-btn" id="resetButton">Reset Game</button>
+        </div>
+    </div>
+
+    <img id="myPet" class="windowheader" src="/assets/wolfchan-falling.png" alt="virtual pet" style="display: none;"/>
+    
+
     <script src="./app-break.js"></script>
 </body>
 </html>
