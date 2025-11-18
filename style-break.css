@@ -115,6 +115,13 @@ p {
     color: #fff; 
 }
 
+#home-icon {
+    width: 30px; 
+    height: auto; 
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 /*---------------------------------------------------------------------------------------------------------------------------------
  Tic Tac Toe Game Styles 
  ---------------------------------------------------------------------------------------------------------------------------------*/
@@ -196,4 +203,27 @@ p {
 
 #myPet.grabbing {
     cursor: grabbing;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------
+ Pet Options Popup Styles
+ ---------------------------------------------------------------------------------------------------------------------------------*/
+#petOptions {
+    position: absolute;
+    display: none;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    z-index: 30;
+    
+}
+
+#petOptions button {
+  display: block;         /* each button becomes full-width block → stacked */
+  margin: 5px 0;    /* vertical spacing between buttons */
+  padding: 2px;
+  font-size: 15px;
 }

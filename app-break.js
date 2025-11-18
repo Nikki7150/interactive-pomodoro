@@ -30,7 +30,7 @@ function dragElement(element) {
   function startDragging(e) {
     e.preventDefault();
     header.classList.add('grabbing');
-
+    
     // starting pointer coords
     startX = e.clientX;
     startY = e.clientY;
@@ -61,6 +61,10 @@ function dragElement(element) {
     e.preventDefault();
     const clientX = e.clientX;
     const clientY = e.clientY;
+
+    if(element.id === "myPet" && petOptionPopup) {
+      petOptionPopup.style.display = "none"; // hide pet options if open
+    }
 
     const dx =  clientX - startX;
     const dy = clientY - startY;
@@ -420,7 +424,6 @@ petSpawnButton.addEventListener("click", () => {
 
 dragElement(pet);
 
-
 // make pet fall after being spawned
 function animateFall() {
     if (!isFalling) return;
@@ -437,5 +440,65 @@ function animateFall() {
     pet.style.top = petY + "px";
     pet.style.left = petX + "px";
 
+    if (isFalling) {
+      pet.src = "assets/wolfchan-falling.png";
+    }
+    else {
+      pet.src = "assets/wolfchan-walking.png";
+    }
+
     requestAnimationFrame(animateFall);   // repeats smoothly at 60fps
 }
+
+const petOptionPopup = document.getElementById("petOptions");
+
+// if pet is right clicked, it goes away
+pet.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    pet.style.display = "none";
+});
+
+// if pet is clicked once, it barks and gives a small popup with different options
+pet.addEventListener("click", () => {
+    const barkSound = new Audio('/assets/bark.mp3');
+    barkSound.play();
+    
+    // if pet is on the ground, then show options
+    if (isFalling) return; // prevent popup while falling
+    if (petOptionPopup.style.display === "block") {
+        petOptionPopup.style.display = "none";
+        return;
+    }
+    
+    // position popup near pet
+    const petRect = pet.getBoundingClientRect();
+    petX = petRect.left;
+    petY = petRect.top;
+    petOptionPopup.style.top = (petY - 70) + "px"; // position above pet
+    petOptionPopup.style.left = (petX + pet.offsetWidth + 10) + "px"; // position to the right of pet
+    petOptionPopup.style.display = "block";
+})
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// Go back home button functionality
+// ----------------------------------------------------------------------------------------------------------------------------------------
+
+const homeButton = document.getElementById("Home");
+homeButton.addEventListener("click", () => {
+  if (ctx.getImageData(0, 0, canvas.width, canvas.height).data.some(channel => channel !== 0)) {
+    alert("Please clear the drawing before going home.");
+    return;
+  }
+  else if(pet.style.display === "block") {
+    alert("Please put away your virtual pet before going home.");
+    return;
+  }
+  // check if there is drawing on the canvas
+  else if(affirmationWindow.style.display === "block" || drawingWindow.style.display === "block" || ticTacToeWindow.style.display === "block") {
+    alert("Please close all open apps before going home.");
+    return;
+  }
+  else {
+    window.location.href = "index.html";
+  }
+});
