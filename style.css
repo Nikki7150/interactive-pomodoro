@@ -5,6 +5,9 @@ html {
     background-position:center;
     min-height: 100vh;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    /* Custom cursor: provide a high-DPI friendly image-set first, then a standard url() fallback. */
+    cursor: -webkit-image-set(url('http://127.0.0.1:5500/assets/cursor.png') 1x) 16 16, auto;
+    cursor: url('http://127.0.0.1:5500/assets/cursor.png') 16 16, auto;
 }
 
 body {
@@ -275,6 +278,22 @@ body {
     margin: 0;
     }
 }
+
+  /* Make the todo window respect the computer screen height
+     and make its content area scroll when there are many items. */
+  #todolist {
+    /* limit the todo window to a percentage of the parent (#computer-screen) height */
+    max-height: 90%;
+    overflow: hidden; /* keep header visible, allow .contents to scroll */
+  }
+
+  #todolist .contents {
+    /* allow the contents area to grow but not exceed the window
+       leave room for the header / controls by subtracting an estimated header height */
+    max-height: calc(100% - 56px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
 #todoheader {
     margin: 0;
