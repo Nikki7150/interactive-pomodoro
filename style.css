@@ -86,7 +86,7 @@ body {
     cursor: pointer;
     position: absolute;
     bottom: 200px;
-    left: 183px;
+    left: 181px;
     /* Zoom animation support */
     transition: transform 600ms ease;
     transform-origin: center center;
@@ -111,7 +111,7 @@ body {
     border: 2px solid #000;
     border-radius: 20px;
     overflow: hidden;
-    background-image: url('/assets/screen.jpeg');
+    background-image: url('/assets/screen.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -124,7 +124,7 @@ body {
 }
 
 #computer-screen.open {
-    background-image: url('/assets/skz-wallpaper.jpeg');
+    background-image: url('/assets/comp-screen.jpeg');
     #desktopApps {
       display: block;
     }
@@ -134,7 +134,7 @@ body {
 }
 
 #computer-screen.close {
-    background-image: url('/assets/screen.jpeg');
+    background-image: url('/assets/screen.png');
     #desktopApps {
       display: none;
     }

@@ -31,7 +31,8 @@ function zoomInAnimation() {
         backgroundContainer.removeEventListener('transitionend', onTransitionEnd);
 
         // Change the HTML element's background image and show back button
-        document.documentElement.style.backgroundImage = "url('/assets/pomodoro.jpeg')";
+        document.documentElement.style.backgroundImage = "url('/assets/comp-close.png')";
+        container.classList.add('close');
         backButton.style.display = 'inline';
 
         // Hide both the laptop and window images
@@ -61,6 +62,7 @@ if (laptopImg) {
 
 const container = document.getElementById('computer-screen');
 container.addEventListener('click', () => {
+    container.classList.remove('close');
     container.classList.add('open');
 });
 
@@ -466,7 +468,6 @@ backButton.addEventListener('click', () => {
   }
   // maybe try to check if any of the other popups are open?
   container.style.display = 'none';
-  //document.documentElement.style.backgroundImage = "url('/assets/desk.jpeg')";
   laptopContainer.style.display = 'block';
   windowContainer.style.display = 'block';
   backgroundContainer.style.display = 'block';
