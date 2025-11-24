@@ -391,7 +391,7 @@ if (ticTacToeIcon) {
   if (!w) return;
   w.addEventListener('mousedown', () => bringToFront(w));
 });
-
+/*
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // Virtual pet functionality
 // ----------------------------------------------------------------------------------------------------------------------------------------
@@ -478,6 +478,7 @@ pet.addEventListener("click", () => {
     petOptionPopup.style.left = (petX + pet.offsetWidth + 10) + "px"; // position to the right of pet
     petOptionPopup.style.display = "block";
 })
+*/
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // Go back home button functionality
@@ -489,10 +490,11 @@ homeButton.addEventListener("click", () => {
     alert("Please clear the drawing before going home.");
     return;
   }
+  /*
   else if(pet.style.display === "block") {
     alert("Please put away your virtual pet before going home.");
     return;
-  }
+  }*/
   // check if there is drawing on the canvas
   else if(affirmationWindow.style.display === "block" || drawingWindow.style.display === "block" || ticTacToeWindow.style.display === "block") {
     alert("Please close all open apps before going home.");
